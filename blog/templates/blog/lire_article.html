@@ -31,8 +31,11 @@
 
 	
 	<div class="commentaire">
-		<p>Maxime, le 28 mai 2019</p>
-		<p>Ceci est un exemple de commentaire, qui est à remplacer par votre modèle</p>
+		{% for comment in comments %}
+		
+			<p>{{ comment/pseudo }}, le {{ comment.date }}</p>
+			<p>{{ comment.content }}</p>
+		{% endfor %}
 	</div>
 
 {% endblock %}
