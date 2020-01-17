@@ -9,7 +9,7 @@ class Article(models.Model):
                                 auto_now_add=True, auto_now=False)
     is_visible = models.BooleanField(verbose_name="Article publié ?",
                                      default=False)
-    categorie = models.ForeignKey('Categorie')
+    categorie = models.ForeignKey('Categorie', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.titre
@@ -27,3 +27,6 @@ class Categorie(models.Model):
 
 class Comment(models.Model):
     """ Modèle pour les commentaires. A vous de l'écrire ! """
+from django.db import models
+
+# Create your models here.
