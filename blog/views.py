@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
-from .models import Article
+from .models import Article, Comment
 
 
 def accueil(request):
@@ -11,7 +11,7 @@ def accueil(request):
     le moment.
     """
     articles = Article.objects.filter(is_visible=True).order_by('-date')[:4]
-    
+
     return render(request, 'blog/accueil.html', {'articles': articles})
 
 
@@ -21,5 +21,6 @@ def lire_article(request, slug):
     fourni en paramètre
     """
     article = get_object_or_404(Article, slug=slug)
+    comments = Comment.objects.filter(is_visible=True).order_by('-date')[:4]    
 
-    return render(request, 'blog/lire_article.html', {'article': article})
+    return render(request, 'blog/lire_article.html', {'article': article, 'comments': comments})
