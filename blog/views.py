@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-
 from .models import Article, Comment
+from .forms import CommentForm
 
 
 def accueil(request):
@@ -21,6 +21,16 @@ def lire_article(request, slug):
     fourni en paramètre
     """
     article = get_object_or_404(Article, slug=slug)
-    comments = Comment.objects.filter(is_visible=True).order_by('-date')[:4]    
 
-    return render(request, 'blog/lire_article.html', {'article': article, 'comments': comments})
+    comments = Comment.objects.filter(is_visible=True).order_by('-date')[:4]   
+
+    form = CommentForm(request.POST, instance=article)
+    return render(request, 'blog/lire_article.html', locals())
+
+def store_comment(request):
+    form = CommentForm(request.POST, instance=article)
+    if form.is_valid():
+        form.save() 
+    articles = Article.objects.filter(is_visible=True).order_by('-date')[:4]
+    
+    return render(request, 'blog/accueil.html', {'articles': articles})
