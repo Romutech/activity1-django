@@ -11,7 +11,7 @@ def accueil(request):
     le moment.
     """
     articles = Article.objects.filter(is_visible=True).order_by('-date')[:4]
-
+    
     return render(request, 'blog/accueil.html', {'articles': articles})
 
 

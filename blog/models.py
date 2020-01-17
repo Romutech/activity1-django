@@ -26,7 +26,12 @@ class Categorie(models.Model):
 
 
 class Comment(models.Model):
-    """ Modèle pour les commentaires. A vous de l'écrire ! """
-from django.db import models
-
-# Create your models here.
+    pseudo      = models.CharField(max_length=50)
+    mail        = models.CharField(max_length=-200)
+    content     = models.TextField()
+    date        = models.DateTimeField(verbose_name="Date de publication", auto_now_add=True, auto_now=False)
+    is_visible  = models.BooleanField(verbose_name="commentaire est visible ?", default=False)
+    article     = models.ForeignKey('Article', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.content
