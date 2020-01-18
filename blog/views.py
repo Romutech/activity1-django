@@ -21,17 +21,21 @@ def lire_article(request, slug):
     fourni en paramètre
     """
     article = get_object_or_404(Article, slug=slug)
-
     comments = Comment.objects.filter(is_visible=True, article=article).order_by('-date')[:4]   
-
     form = CommentForm(request.POST)
 
     if form.is_valid():
+        try :
+            if request.POST['is_visible']:
+                is_visible = True
+        except : 
+            is_visible = False
+            
         comment = Comment()
         comment.pseudo = request.POST['pseudo']
         comment.mail = request.POST['mail']
         comment.content = request.POST['content']
-        comment.is_visible = True
+        comment.is_visible = is_visible
         comment.article  = article
         comment.save()
 
