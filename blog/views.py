@@ -38,7 +38,7 @@ def store_comment(request, slug):
         comment.is_visible  = True
         comment.article     = article
         comment.save()
-    else :
-        return render(request, 'blog/lire_article.html', locals())
+        return redirect('/blog/' + slug)
+
+    return render(request, 'blog/lire_article.html', locals())
             
-    return redirect('/blog/' + slug)
