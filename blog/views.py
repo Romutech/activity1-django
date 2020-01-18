@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Article, Comment
 from .forms import CommentForm
 
@@ -20,17 +20,25 @@ def lire_article(request, slug):
     Affiche un article complet, sélectionné en fonction du slug
     fourni en paramètre
     """
-    article = get_object_or_404(Article, slug=slug)
-    comments = Comment.objects.filter(is_visible=True, article=article).order_by('-date')[:4]   
-    form = CommentForm(request.POST or None)
-
-    if form.is_valid():
-        comment = Comment()
-        comment.pseudo = form.cleaned_data['pseudo']
-        comment.mail = form.cleaned_data['mail']
-        comment.content = form.cleaned_data['content']
-        comment.is_visible = form.cleaned_data['is_visible']
-        comment.article  = article
-        comment.save()
+    article    = get_object_or_404(Article, slug=slug)
+    comments    = Comment.objects.filter(is_visible=True, article=article).order_by('-date')[:4]   
+    form        = CommentForm()
 
     return render(request, 'blog/lire_article.html', locals())
+
+def store_comment(request, slug):
+    article    = get_object_or_404(Article, slug=slug)
+    form        = CommentForm(request.POST or None)
+
+    if form.is_valid():
+        comment             = Comment()
+        comment.pseudo      = form.cleaned_data['pseudo']
+        comment.mail        = form.cleaned_data['mail']
+        comment.content     = form.cleaned_data['content']
+        comment.is_visible  = True
+        comment.article     = article
+        comment.save()
+    else :
+        return render(request, 'blog/lire_article.html', locals())
+            
+    return redirect('/blog/' + slug)

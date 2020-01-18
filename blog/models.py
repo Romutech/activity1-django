@@ -31,7 +31,7 @@ class Comment(models.Model):
     mail        = models.EmailField(max_length=254) 
     content     = models.TextField(null=True)
     date        = models.DateTimeField(verbose_name="Date de publication", auto_now_add=True, auto_now=False)
-    is_visible  = models.BooleanField(verbose_name="commentaire est visible ?", default=False)
+    is_visible  = models.BooleanField(verbose_name="Le commentaire est visible ?", default=False)
     article     = models.ForeignKey('Article', on_delete=models.CASCADE)
     
     class Meta:
