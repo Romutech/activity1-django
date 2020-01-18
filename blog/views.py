@@ -22,15 +22,17 @@ def lire_article(request, slug):
     """
     article = get_object_or_404(Article, slug=slug)
 
-    comments = Comment.objects.filter(is_visible=True).order_by('-date')[:4]   
+    comments = Comment.objects.filter(is_visible=True, article=article).order_by('-date')[:4]   
 
-    form = CommentForm(request.POST, instance=article)
-    return render(request, 'blog/lire_article.html', locals())
+    form = CommentForm(request.POST)
 
-def store_comment(request):
-    form = CommentForm(request.POST, instance=article)
     if form.is_valid():
-        form.save() 
-    articles = Article.objects.filter(is_visible=True).order_by('-date')[:4]
-    
-    return render(request, 'blog/accueil.html', {'articles': articles})
+        comment = Comment()
+        comment.pseudo = request.POST['pseudo']
+        comment.mail = request.POST['mail']
+        comment.content = request.POST['content']
+        comment.is_visible = True
+        comment.article  = article
+        comment.save()
+
+    return render(request, 'blog/lire_article.html', locals())
