@@ -22,7 +22,7 @@ def lire_article(request, slug):
     """
     article = get_object_or_404(Article, slug=slug)
     comments = Comment.objects.filter(is_visible=True, article=article).order_by('-date')[:4]   
-    form = CommentForm(request.POST)
+    form = CommentForm(request.POST or None)
 
     if form.is_valid():
         comment = Comment()
