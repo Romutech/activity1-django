@@ -25,17 +25,11 @@ def lire_article(request, slug):
     form = CommentForm(request.POST)
 
     if form.is_valid():
-        try :
-            if request.POST['is_visible']:
-                is_visible = True
-        except : 
-            is_visible = False
-            
         comment = Comment()
-        comment.pseudo = request.POST['pseudo']
-        comment.mail = request.POST['mail']
-        comment.content = request.POST['content']
-        comment.is_visible = is_visible
+        comment.pseudo = form.cleaned_data['pseudo']
+        comment.mail = form.cleaned_data['mail']
+        comment.content = form.cleaned_data['content']
+        comment.is_visible = form.cleaned_data['is_visible']
         comment.article  = article
         comment.save()
 
