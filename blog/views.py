@@ -29,7 +29,6 @@ def lire_article(request, slug):
         comment.pseudo      = form.cleaned_data['pseudo']
         comment.mail        = form.cleaned_data['mail']
         comment.content     = form.cleaned_data['content']
-        comment.is_visible  = True
         comment.article     = article
         comment.save()
         return redirect('/blog/' + slug)
