@@ -18,7 +18,7 @@
 	<h3 class="titre-comments">Commentaires</h3>
 
 	<h4>Poster votre propre commentaire</h4>
-	<form method="post" action="{% url 'store_comment' article.slug %}" class="pure-form">
+	<form method="post" action="{% url 'blog_lire' article.slug %}" class="pure-form">
     	{% csrf_token %}
     	{{ form.as_p }}
     	<inoput type="hidden" name="article" id="id_article" value="{{ article.id }}">
