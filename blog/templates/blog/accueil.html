@@ -8,8 +8,7 @@
 	{% for article in articles %}
 		<h2 class="titre-article">{{ article.titre }}</h2>
 		
-
-		<p class="infos-article">Le {{ article.date|date:'SHORT_DATETIME_FORMAT' }}, XX commentaires.</p>
+		<p class="infos-article">Le {{ article.date|date:'SHORT_DATETIME_FORMAT' }}, {{ article.comment_set.count }} commentaire{{ article.comment_set.count|pluralize }}.</p>
 
 		<div class="contenu-article">
 			{{ article.contenu|safe|truncatewords_html:30 }}

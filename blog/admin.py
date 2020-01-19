@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import Article, Categorie, Comment
 
 
@@ -12,11 +11,10 @@ class ArticleAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('pseudo', 'article', 'date', 'content', 'is_visible', )
-    list_filter = ('pseudo', )
+    list_filter = ('pseudo', 'article', )
     search_fields = ('pseudo', 'content', )
     date_hierarchy = 'date'
     ordering = ('date', )
-
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Categorie)

@@ -1,5 +1,4 @@
 from django.db import models
-from pprint import pprint
 
 class Article(models.Model):
     titre = models.CharField(max_length=100)
