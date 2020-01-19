@@ -32,7 +32,7 @@ def lire_article(request, slug):
         comment.is_visible  = True
         comment.article     = article
         comment.save()
-        return redirect('/blog/' + slug, form)
+        return redirect('/blog/' + slug)
 
     return render(request, 'blog/lire_article.html', locals())
 
