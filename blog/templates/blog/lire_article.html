@@ -29,14 +29,12 @@
 
 	<div class="clear"></div>
 
-	
 	<div class="commentaire">
 		{% for comment in comments %}
 			<p>{{ comment.pseudo }}, le {{ comment.date }}<br>
 			<p>{{ comment.content }}</p>
 			<br>
 		{% endfor %}
-
 	</div>
 
 {% endblock %} 
